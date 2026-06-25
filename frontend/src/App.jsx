@@ -98,7 +98,7 @@ function App() {
             <span className="stat-label">ABSENT REGISTRY</span>
             <span className="stat-number">{absentCount}</span>
           </div>
-          <button className="reset-btn" onClick={resetAttendance}>RESET MATRIX</button>
+          <button className="reset-btn" onClick={resetAttendance}>RESET </button>
         </div>
         
         {/* Infographic Data Bar */}
