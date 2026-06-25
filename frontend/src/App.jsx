@@ -8,25 +8,24 @@ function App() {
     getStudents();
   }, []);
 
-
-  const API_URL=import.meta.env.VITE_API_URL || "http://localhost:3000";
-
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   const getStudents = async () => {
     try {
       const [studentsRes, attendanceRes] = await Promise.all([
-        //fetch("http://localhost:3000/students"),
         fetch(`${API_URL}/students`),
-       // fetch("http://localhost:3000/attendance/today")
-       fetch(`${API_URL}/attendance`),
+        fetch(`${API_URL}/attendance`),
       ]);
       const studentsData = await studentsRes.json();
       const attendanceData = await attendanceRes.json();
       const attendanceMap = {};
       
+      // CRITICAL FIX: Safe optional checking prevents crashes if a student was removed from DB
       attendanceData.forEach(record => {
-        const sId = record.studentId._id || record.studentId;
-        attendanceMap[sId] = record.status;
+        if (record && record.studentId) {
+          const sId = record.studentId._id || record.studentId;
+          attendanceMap[sId] = record.status;
+        }
       });
       
       const updatedStudents = studentsData.map(student => ({
@@ -69,7 +68,6 @@ function App() {
   const absentCount = students.filter(student => student.attendance === "A").length;
   const totalCount = students.length;
 
-  // Calculate dynamic percentages for the infographic bar
   const presentPercentage = totalCount ? (presentCount / totalCount) * 100 : 0;
   const absentPercentage = totalCount ? (absentCount / totalCount) * 100 : 0;
 
