@@ -1,0 +1,276 @@
+/* ==========================================================================
+   3D CONFIGURATIONS & CORE PALETTE
+   ========================================================================== */
+:root {
+  --canvas-bg: #090b11;
+  --panel-bg: rgba(17, 22, 37, 0.75);
+  --cyber-blue: #00f0ff;
+  --present-neon: #00ff88;
+  --absent-neon: #ff0055;
+  --text-primary: #ffffff;
+  --text-muted: #627289;
+  --glass-border: rgba(0, 240, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--canvas-bg);
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  color: var(--text-primary);
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D Dashboard Framework Canvas */
+.container {
+  width: 90%;
+  max-width: 950px;
+  padding: 3.5rem;
+  background: var(--panel-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: -20px 30px 60px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.05);
+  transform: rotateX(15deg) rotateY(-10deg) rotateZ(3deg);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.container:hover {
+  transform: rotateX(6deg) rotateY(-4deg) rotateZ(1deg) translateZ(15px);
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 2.5rem 0;
+  color: var(--text-primary);
+  border-left: 4px solid var(--cyber-blue);
+  padding-left: 1rem;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+/* ==========================================================================
+   INFOGRAPHIC DATABAR COMPONENT
+   ========================================================================== */
+.summary-deck {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  transform: translateZ(25px);
+}
+
+.metric-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 0.25rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.present-box .stat-number { color: var(--present-neon); text-shadow: 0 0 10px rgba(0, 255, 136, 0.2); }
+.absent-box .stat-number { color: var(--absent-neon); text-shadow: 0 0 10px rgba(255, 0, 85, 0.2); }
+
+/* Live Data Infographic Bar */
+.infographic-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.infographic-fill {
+  height: 100%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.present-fill {
+  background: linear-gradient(90deg, #00bb66, var(--present-neon));
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.absent-fill {
+  background: linear-gradient(90deg, #cc0044, var(--absent-neon));
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  border-color: var(--absent-neon);
+  color: var(--absent-neon);
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+}
+
+/* ==========================================================================
+   INTERACTIVE BUTTONS SYSTEM
+   ========================================================================== */
+.action-button-wrapper {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Base style for custom 3D buttons */
+.btn-matrix {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  font-weight: 900;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #151a26;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 0 #0d1017; /* 3D push-down edge effect */
+}
+
+.btn-matrix:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0d1017;
+}
+
+/* Unselected hovering states */
+.btn-p:hover { color: var(--present-neon); border-color: rgba(0, 255, 136, 0.3); }
+.btn-a:hover { color: var(--absent-neon); border-color: rgba(255, 0, 85, 0.3); }
+
+/* Persistent active neon lock-down states */
+.btn-p.active-p {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: var(--present-neon);
+  color: var(--present-neon);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.25), inset 0 0 4px rgba(0, 255, 136, 0.2);
+  transform: translateZ(5px);
+}
+
+.btn-a.active-a {
+  background: rgba(255, 0, 85, 0.1);
+  border-color: var(--absent-neon);
+  color: var(--absent-neon);
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.25), inset 0 0 4px rgba(255, 0, 85, 0.2);
+  transform: translateZ(5px);
+}
+
+/* ==========================================================================
+   REGISTRY GRAPH MATRIX (TABLE)
+   ========================================================================== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+th {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 1rem;
+  text-align: left;
+}
+
+tbody tr {
+  background: rgba(255, 255, 255, 0.01);
+  transition: all 0.2s ease;
+}
+
+tbody tr:hover {
+  background: rgba(0, 240, 255, 0.02);
+}
+
+td {
+  padding: 1.2rem 1rem;
+  color: #cbd5e1;
+  border-top: 1px solid rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+
+td:first-child {
+  border-left: 1px solid rgba(255,255,255,0.02);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: var(--cyber-blue);
+  font-weight: 700;
+}
+
+td:last-child {
+  border-right: 1px solid rgba(255,255,255,0.02);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Mapped Status Badges */
+.status-badge {
+  font-weight: 800;
+  color: var(--text-muted);
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.status-p {
+  color: var(--present-neon) !important;
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.status-a {
+  color: var(--absent-neon) !important;
+  background: rgba(255, 0, 85, 0.08);
+  border: 1px solid rgba(255, 0, 85, 0.2);
+}
+
+/* Responsive constraints */
+@media (max-width: 768px) {
+  .container { transform: none !important; padding: 1.5rem; }
+  .metric-info { grid-template-columns: 1fr; text-align: center; gap: 1.25rem; }
+  .reset-btn { width: 100%; }
+}
